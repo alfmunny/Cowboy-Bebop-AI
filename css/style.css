@@ -373,8 +373,156 @@ body::after {
   font-size: 0.72rem; color: rgba(185,176,160,0.6); line-height: 1.6;
 }
 
+/* ============================================================
+   LISTEN BUTTONS (YouTube)
+   ============================================================ */
+.listen {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--cream); cursor: pointer;
+  padding: 0.32rem 0.6rem; border: 1px solid var(--line); border-radius: 2px;
+  background: rgba(177,31,51,0.12); transition: all 0.2s; white-space: nowrap;
+}
+.listen:hover { background: var(--bordeaux); border-color: var(--bordeaux); color: #fff; }
+.listen.lg { font-size: 0.7rem; padding: 0.45rem 0.8rem; margin-top: 0.8rem; align-self: flex-start; }
+.card-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-top: 1rem; }
+.card-actions .cue { margin-top: 0; }
+
+/* topbar brand as link + active state */
+.topbar .brand a { color: inherit; }
+.topbar nav a.here { color: var(--mustard); border-bottom: 1px solid var(--mustard); padding-bottom: 2px; }
+
+/* ============================================================
+   SECONDARY PAGE HEADER (Song Index / Deep Cuts)
+   ============================================================ */
+.page-head { padding: 8rem 0 3rem; }
+.page-head h1 {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(2.6rem, 9vw, 6.5rem); line-height: 0.86; color: var(--cream);
+  margin-top: 0.6rem;
+}
+.page-head h1 b { color: var(--mustard); -webkit-text-stroke: 0; }
+.page-head .lede { margin-top: 1.4rem; max-width: 60ch; color: var(--cream-dim); font-size: 1.05rem; }
+.page-head .lede.dim { font-size: 0.92rem; color: rgba(185,176,160,0.75); }
+.head-stats { display: flex; gap: 2.4rem; margin-top: 2.2rem; flex-wrap: wrap; }
+.head-stats .stat .n { font-family: var(--font-display); font-size: 2.4rem; color: var(--teal); line-height: 1; }
+.head-stats .stat .l {
+  font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--cream-dim); display: block; margin-top: 0.2rem;
+}
+
+/* ============================================================
+   INDEX LISTS
+   ============================================================ */
+.index-main { padding-bottom: 6rem; }
+.idx-block { margin-top: 3.4rem; border-top: 1px solid var(--line); padding-top: 1.6rem; }
+.idx-h {
+  display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap;
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(1.6rem, 4vw, 2.6rem); color: var(--cream); margin-bottom: 1.2rem;
+}
+.idx-h em {
+  font-style: normal; font-family: var(--font-mono); text-transform: none;
+  font-size: 0.74rem; letter-spacing: 0.04em; color: var(--cream-dim);
+}
+.idx-list { display: grid; gap: 0.6rem; }
+.idx-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap; background: var(--noir); border: 1px solid var(--line);
+  border-radius: 4px; padding: 0.85rem 1.1rem; transition: border-color 0.25s, transform 0.25s;
+  opacity: 0; transform: translateY(14px);
+}
+.idx-row.in { opacity: 1; transform: none; }
+.idx-row:hover { border-color: rgba(232,178,46,0.4); }
+.idx-name {
+  font-family: var(--font-cond); font-weight: 600; text-transform: uppercase;
+  font-size: 1.12rem; color: var(--cream); line-height: 1.1;
+}
+.idx-sub { font-family: var(--font-mono); font-size: 0.72rem; color: var(--cream-dim); margin-top: 0.15rem; }
+.idx-links { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.sess-chip {
+  font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--cream-dim); padding: 0.3rem 0.55rem;
+  border: 1px solid var(--line); border-radius: 2px; transition: all 0.2s; white-space: nowrap;
+}
+.sess-chip:hover { border-color: var(--mustard); color: var(--mustard); }
+.yt-chip {
+  font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--cream); padding: 0.3rem 0.55rem; border-radius: 2px;
+  background: rgba(177,31,51,0.18); border: 1px solid rgba(177,31,51,0.4); transition: all 0.2s; white-space: nowrap;
+}
+.yt-chip:hover { background: var(--bordeaux); color: #fff; }
+
+/* ============================================================
+   DEEP CUTS — track cards
+   ============================================================ */
+.track-nav {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2.4rem;
+}
+.track-nav a {
+  font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--cream-dim); padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line); border-radius: 2px; transition: all 0.2s;
+}
+.track-nav a:hover { border-color: var(--mustard); color: var(--mustard); }
+
+.tracks-main { padding-bottom: 5rem; }
+.track {
+  background: var(--noir); border: 1px solid var(--line); border-radius: 6px;
+  padding: 1.6rem 1.7rem; margin-top: 1.6rem; scroll-margin-top: 90px;
+  opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+}
+.track.in { opacity: 1; transform: none; }
+.track:hover { border-color: rgba(232,178,46,0.35); }
+.track-head { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.track-disc { flex: 0 0 auto; }
+.track-id { flex: 1 1 auto; min-width: 200px; }
+.track-role {
+  font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase;
+  letter-spacing: 0.2em; color: var(--neon);
+}
+.track-title {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 0.92; color: var(--cream); margin: 0.15rem 0;
+}
+.track-by { font-family: var(--font-mono); font-size: 0.74rem; color: var(--cream-dim); }
+.track-listen { margin-top: 0; }
+
+.track-meta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.6rem 1.4rem; margin: 1.3rem 0; padding: 1rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.track-meta span { font-size: 0.9rem; color: var(--cream-dim); }
+.track-meta b {
+  display: block; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--teal); margin-bottom: 0.2rem; font-weight: 400;
+}
+
+/* play-along block */
+.play {
+  margin-top: 1.3rem; background: var(--noir-2); border: 1px solid var(--line);
+  border-left: 3px solid var(--mustard); border-radius: 4px; padding: 1.2rem 1.3rem;
+}
+.play-label {
+  font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--mustard); margin-bottom: 0.9rem;
+}
+.play-label span { color: var(--cream-dim); letter-spacing: 0.02em; text-transform: none; }
+.chords { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chord {
+  font-family: var(--font-mono); font-weight: 700; font-size: 1.05rem; color: var(--cream);
+  background: var(--ink); border: 1px solid var(--line); border-radius: 4px;
+  padding: 0.55rem 0.85rem; min-width: 3.4rem; text-align: center;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.4);
+}
+.play-how { margin-top: 1rem; color: var(--cream); font-size: 0.98rem; }
+.play-note {
+  margin-top: 2.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+  font-size: 0.78rem; color: rgba(185,176,160,0.7); line-height: 1.6; max-width: 80ch;
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after { animation: none !important; scroll-behavior: auto; }
-  .card { opacity: 1; transform: none; }
+  .card, .idx-row, .track { opacity: 1; transform: none; }
 }

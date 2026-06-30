@@ -10,11 +10,27 @@ composer Yoko Kanno chose it — how the story, mood and score pay tribute.
 
 ## What's inside
 
-- **All 26 Sessions**, each with a song reference, artist, year, genre, the
-  thematic "Tribute" breakdown, why the song matters, and source links.
+Three pages, one design language:
+
+1. **The 26 Sessions** (`index.html`) — each episode with its song reference,
+   artist, year, genre, the thematic "Tribute" breakdown, why the song matters,
+   a **▶ Listen on YouTube** link, and source links.
+2. **Song Index** (`songs.html`) — a complete cross-reference of every named
+   song, every band/artist (The Rolling Stones recur across four Sessions), and
+   every style evoked, each linking back to its Session and out to YouTube.
+3. **Deep Cuts** (`soundtrack.html`) — the show's *own* music by Yoko Kanno &
+   The Seatbelts (Tank!, Rush, Space Lion, Green Bird, The Real Folk Blues, Blue
+   and more): where each cue is used, its key/form/style, a music-theory note,
+   and a **beginner chord progression to play** (clearly labelled as a simplified
+   teaching arrangement, not a transcription).
+
+Plus:
 - **Procedural cover art** — every episode gets a unique, Blue-Note-inspired
   record-sleeve generated in SVG from the session number. No copyrighted images.
-- **Genre filter**, scroll-reveal animation, and a liner-notes modal per Session.
+- **Genre filter**, scroll-reveal animation, a liner-notes modal per Session,
+  and deep-links (`index.html#s12` opens that Session directly).
+- **YouTube links are search links** (`youtube.com/results?...`), not hard-coded
+  video IDs — so they never break, get region-locked, or point at a dead upload.
 - A design language built around the show's eyecatch palette (mustard / bordeaux
   / teal), condensed display type, film grain and scanlines.
 
@@ -23,13 +39,20 @@ composer Yoko Kanno chose it — how the story, mood and score pay tribute.
 Hand-written **HTML + CSS + vanilla JavaScript**. No build step, no dependencies.
 
 ```
-index.html            # page structure
+index.html            # the 26 Sessions (home)
+songs.html            # the Song / artist / style cross-reference index
+soundtrack.html       # Deep Cuts: the Seatbelts soundtrack + chord guides
 css/style.css         # the full design system
-js/main.js            # rendering engine + generative sleeve art + interactions
-data/episodes.json    # the researched content (the single source of truth)
+js/common.js          # shared helpers: palettes, generative sleeve art, starfield
+js/main.js            # home page: session grid, filters, modal, deep-links
+js/songs.js           # builds the Song Index from episodes.json
+js/soundtrack.js      # builds the Deep Cuts page from soundtrack.json
+data/episodes.json    # researched episode content (single source of truth)
+data/soundtrack.json  # researched track facts + the chord-guide arrangements
 ```
 
-To edit the content, change `data/episodes.json` — the page builds itself from it.
+To edit content, change the JSON files in `data/` — the pages build themselves
+from them.
 
 ## Run locally
 
