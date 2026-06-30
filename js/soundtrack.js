@@ -12,7 +12,15 @@
       `<div class="chord-cell"><span class="chord">${c}</span>${keyboard(c)}</div>`).join("") + `</div>`;
   }
 
-  function trackCard(t, i) {
+  function epBacklinks(t, titles) {
+    if (!t.episodes || !t.episodes.length) return "";
+    const chips = t.episodes.map((s) =>
+      `<a class="sess-chip" href="index.html#s${s}">▸ Session ${String(s).padStart(2, "0")}${titles[s] ? " · " + titles[s] : ""}</a>`
+    ).join("");
+    return `<div class="back-row"><span class="back-label">Hear it in</span>${chips}</div>`;
+  }
+
+  function trackCard(t, i, titles) {
     const scheme = SCHEMES[(i + 1) % SCHEMES.length];
     const playBtn = t.videoId
       ? `<button class="listen lg track-listen play-preview" data-vid="${t.videoId}" data-q="${t.youtube}">▶ Preview</button>`
@@ -44,13 +52,17 @@
         <p class="play-how">${t.tryThis}</p>
       </div>
 
+      ${epBacklinks(t, titles)}
       <div class="sources">Sources: ${(t.sources || []).map((u, n) =>
         `<a href="${u}" target="_blank" rel="noopener">[${n + 1}]</a>`).join(" ")}</div>
     </article>`;
   }
 
   function boot() {
-    load("data/soundtrack.json").then((data) => {
+    Promise.all([load("data/soundtrack.json"), load("data/episodes.json").catch(() => [])])
+      .then(([data, episodes]) => {
+      const titles = {};
+      (episodes || []).forEach((e) => { titles[e.session] = e.title; });
       const intro = data.intro;
       document.getElementById("st-lede").textContent = intro.lede;
       document.getElementById("st-voices").textContent = intro.voices;
@@ -62,7 +74,7 @@
         `<a href="#${t.id}">${t.title}</a>`).join("");
 
       document.getElementById("tracks").innerHTML =
-        data.tracks.map((t, i) => trackCard(t, i)).join("");
+        data.tracks.map((t, i) => trackCard(t, i, titles)).join("");
 
       // "Play all" anonymous playlist of the soundtrack
       const ids = data.tracks.map((t) => t.videoId).filter(Boolean);

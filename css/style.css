@@ -564,6 +564,93 @@ body::after {
 .chord-cell .chord { min-width: auto; padding: 0.3rem 0.6rem; font-size: 0.92rem; }
 .kbd { display: block; border-radius: 2px; box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
 
+/* ============================================================
+   DOUBLE BACKLINKS (episode <-> soundtrack)
+   ============================================================ */
+/* On the Deep Cuts track: "Hear it in Session NN" */
+.back-row {
+  display: flex; align-items: center; gap: 0.5rem 0.6rem; flex-wrap: wrap;
+  margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px dashed var(--line);
+}
+.back-label {
+  font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.18em; color: var(--teal);
+}
+/* In the episode modal: "On the Bebop soundtrack" */
+.deepcut-note .deepcut-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.7rem; }
+.deepcut-chip {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.02em;
+  color: var(--ink); background: var(--teal); border-radius: 3px;
+  padding: 0.45rem 0.75rem; transition: all 0.2s;
+}
+.deepcut-chip:hover { background: var(--mustard); transform: translateY(-1px); }
+
+/* ============================================================
+   RESPONSIVE / MOBILE
+   ============================================================ */
+@media (max-width: 680px) {
+  /* Keep the nav VISIBLE on phones (was display:none) — wrap to its own row */
+  .topbar { flex-wrap: wrap; gap: 0.4rem 0.8rem; padding: 0.7rem 1rem; row-gap: 0.5rem; }
+  .topbar .brand { font-size: 0.7rem; letter-spacing: 0.18em; }
+  .topbar nav { display: flex; width: 100%; gap: 0.45rem; flex-wrap: wrap; }
+  .topbar nav a {
+    font-size: 0.62rem; letter-spacing: 0.1em; padding: 0.28rem 0.55rem;
+    border: 1px solid var(--line); border-radius: 2px; color: var(--cream);
+  }
+  .topbar nav a.here { background: var(--mustard); color: var(--ink); border-color: var(--mustard); }
+
+  /* Hero / headers sit lower so the taller bar doesn't overlap */
+  .hero { padding-top: 8.5rem; min-height: 92svh; }
+  .page-head { padding-top: 9rem; }
+  .hero .bar { width: 6px; }
+
+  /* Single-column session grid that actually fits a phone */
+  .session-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+
+  /* Modal: stack hero, cap the art height, comfortable padding */
+  .modal-backdrop { padding: 0 0 0; }
+  .modal { width: 100vw; min-height: 100svh; border-radius: 0; border: 0; }
+  .modal .m-hero { grid-template-columns: 1fr; }
+  .modal .m-hero .art { aspect-ratio: 16 / 10; max-height: 42vh; }
+  .modal .m-hero .intro { padding: 1.2rem 1.2rem 1.4rem; }
+  .modal .m-body { padding: 1.2rem; }
+  .record-block { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .play-row { width: 100%; }
+  .play-row .listen { flex: 1 1 100%; justify-content: center; white-space: normal; text-align: center; }
+
+  /* Thesis / index headings breathe */
+  .thesis { padding: 4rem 0; }
+  .sessions { padding: 3.5rem 0 5rem; }
+  .sessions-head { margin-bottom: 1.8rem; }
+
+  /* Track cards on the Deep Cuts page */
+  .track { padding: 1.2rem 1.1rem; }
+  .track-head { gap: 0.7rem; }
+  .track-listen { width: 100%; justify-content: center; }
+  .track-meta { grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; }
+
+  /* Chord keyboards a touch smaller, comfortable wrap */
+  .chords { gap: 0.5rem; }
+  .chord-cell .chord { font-size: 0.82rem; padding: 0.25rem 0.5rem; }
+
+  /* Index rows stack their links under the title */
+  .idx-row { align-items: flex-start; }
+  .idx-links { width: 100%; justify-content: flex-start; }
+
+  /* Playlist buttons go full width and centered */
+  .playall { width: 100%; justify-content: center; text-align: center; }
+}
+
+@media (max-width: 380px) {
+  .track-meta { grid-template-columns: 1fr; }
+  .head-stats { gap: 1.4rem; }
+}
+
+/* Touch devices: discs spin on tap-hover too, but never cause scroll jank */
+@media (hover: none) {
+  .card:hover { transform: none; }
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after { animation: none !important; scroll-behavior: auto; }

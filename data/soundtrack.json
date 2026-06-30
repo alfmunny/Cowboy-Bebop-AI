@@ -37,7 +37,8 @@
         "https://cowboybebop.fandom.com/wiki/Tank!",
         "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       ],
-      "videoId": "UFFa0QoHWvE"
+      "videoId": "UFFa0QoHWvE",
+      "episodes": []
     },
     {
       "id": "rush",
@@ -62,7 +63,10 @@
         "https://cowboybebop.fandom.com/wiki/Rush",
         "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       ],
-      "videoId": "XtxsYF4e3uM"
+      "videoId": "XtxsYF4e3uM",
+      "episodes": [
+        1
+      ]
     },
     {
       "id": "space-lion",
@@ -87,7 +91,11 @@
         "https://cowboybebop.fandom.com/wiki/Space_Lion",
         "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       ],
-      "videoId": "DybCZvW1mBo"
+      "videoId": "DybCZvW1mBo",
+      "episodes": [
+        12,
+        13
+      ]
     },
     {
       "id": "green-bird",
@@ -112,7 +120,10 @@
         "https://cowboybebop.fandom.com/wiki/Green_Bird",
         "https://cowboybebop.fandom.com/wiki/Ballad_of_Fallen_Angels"
       ],
-      "videoId": "EL7e5XrzanA"
+      "videoId": "EL7e5XrzanA",
+      "episodes": [
+        5
+      ]
     },
     {
       "id": "waltz-for-zizi",
@@ -137,7 +148,10 @@
         "https://cowboybebop.fandom.com/wiki/Waltz_for_Zizi",
         "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       ],
-      "videoId": "Ryqvdr0UxcI"
+      "videoId": "Ryqvdr0UxcI",
+      "episodes": [
+        10
+      ]
     },
     {
       "id": "cats-on-mars",
@@ -162,7 +176,11 @@
         "https://cowboybebop.fandom.com/wiki/Cats_on_Mars",
         "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       ],
-      "videoId": "ZTVn6Mse_xQ"
+      "videoId": "ZTVn6Mse_xQ",
+      "episodes": [
+        9,
+        24
+      ]
     },
     {
       "id": "real-folk-blues",
@@ -187,7 +205,11 @@
         "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop",
         "https://cowboybebop.fandom.com/wiki/The_Real_Folk_Blues"
       ],
-      "videoId": "CjUVTEExfBg"
+      "videoId": "CjUVTEExfBg",
+      "episodes": [
+        25,
+        26
+      ]
     },
     {
       "id": "blue",
@@ -212,7 +234,10 @@
         "https://cowboybebop.fandom.com/wiki/Blue",
         "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop"
       ],
-      "videoId": "Xjzb_-26m2o"
+      "videoId": "Xjzb_-26m2o",
+      "episodes": [
+        26
+      ]
     }
   ]
 }
