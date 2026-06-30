@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cowboy Bebop · Sessions in Jazz</title>
+  <meta name="description" content="Every episode of Cowboy Bebop is named after a song. A track-by-track tribute to the music hidden in all 26 Sessions — jazz, blues, rock, funk and the Seatbelts. AI-researched, Blue Note styled." />
+  <meta name="theme-color" content="#0b0a10" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230b0a10'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23e8b22e' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23b11f33'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%230b0a10'/%3E%3C/svg%3E" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Cowboy Bebop · Sessions in Jazz" />
+  <meta property="og:description" content="A track-by-track tribute to the music hidden in all 26 Sessions of Cowboy Bebop." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="starfield"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand">SEE YOU SPACE&nbsp;<b>COWBOY</b></div>
+    <nav>
+      <a href="#sessions">26 Sessions</a>
+      <a href="songs.html">Song Index</a>
+      <a href="soundtrack.html">Deep Cuts</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="bar left"></span>
+    <span class="bar right"></span>
+    <div class="wrap">
+      <div class="count-in"><span>3</span><span>·</span><span>2</span><span>· 1 · LET'S JAM</span></div>
+      <h1>
+        <span class="cowboy">Cowboy</span>
+        <span class="bebop">Bebop</span>
+      </h1>
+      <p class="tagline">
+        Every episode is a “Session,” and almost every Session is named after a song.
+        This is the music hidden in the show — <em>track by track</em>, from Bill Evans to the Rolling Stones.
+      </p>
+      <a href="#sessions" class="scroll-cue">Drop the needle</a>
+    </div>
+  </section>
+
+  <!-- Thesis -->
+  <section class="thesis" id="thesis">
+    <div class="wrap">
+      <div class="grid">
+        <div>
+          <span class="eyebrow">The Concept</span>
+          <h2>A jukebox<br />in <b>orbit.</b></h2>
+        </div>
+        <div>
+          <p>
+            When Shinichiro Watanabe and composer <strong>Yoko Kanno</strong> built Cowboy Bebop,
+            they wired its skeleton out of 20th-century music. The episodes aren't called “Episode 1, 2, 3” —
+            they're <strong>Sessions</strong>, the word for a jazz recording date.
+          </p>
+          <p>
+            And the titles? They're a record-collection in disguise. Bill Evans' <em>Waltz for Debby</em>
+            becomes <strong>Waltz for Venus</strong>. The Rolling Stones, Queen, Led Zeppelin, KISS,
+            Herbie Hancock and the Chess blues catalogue all leave fingerprints. Some titles name a song outright;
+            others summon a whole genre — blues, funk, samba, boogie-woogie.
+          </p>
+          <p>
+            This page breaks down all twenty-six. For each, the song it points to, the era it comes from,
+            and <strong>why</strong> Watanabe chose it — how the story, mood and Kanno's score pay tribute.
+          </p>
+          <div class="stats">
+            <div class="stat"><div class="n" id="stat-episodes">26</div><div class="l">Sessions</div></div>
+            <div class="stat"><div class="n" id="stat-genres">9</div><div class="l">Genres referenced</div></div>
+            <div class="stat"><div class="n">1</div><div class="l">Band: The Seatbelts</div></div>
+          </div>
+          <div class="genre-key">
+            <span>Jazz</span><span>Blues</span><span>Rock</span><span>Funk / R&amp;B</span>
+            <span>Samba</span><span>Metal</span><span>Boogie-woogie</span><span>New Wave</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sessions -->
+  <section class="sessions" id="sessions">
+    <div class="wrap">
+      <div class="sessions-head">
+        <h2>The <b>26</b> Sessions</h2>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div id="playall-slot" class="playall-wrap"></div>
+      <div class="session-grid" id="session-grid"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="about">
+    <div class="wrap">
+      <div class="see-you">See You Space <b>Cowboy…</b></div>
+      <div class="weight">You're gonna carry that weight.</div>
+      <p class="credit">
+        An AI-researched, AI-built tribute. Episode analysis cross-checked against Wikipedia,
+        the Cowboy Bebop wiki, TV Tropes and music references — open any Session for sources.
+        Built with hand-written HTML, CSS &amp; JavaScript. Cover art generated procedurally.
+      </p>
+      <p class="disclaimer">
+        Cowboy Bebop is © Sunrise / Bandai Namco. This is a non-commercial fan project for
+        educational and appreciation purposes. No copyrighted images or audio are reproduced here —
+        all artwork on this page is original, generated procedurally in a Blue-Note-inspired style.
+        Referenced songs and recordings belong to their respective rights holders.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal mount -->
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+
+  <script src="js/common.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
