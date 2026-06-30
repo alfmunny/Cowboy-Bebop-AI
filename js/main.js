@@ -4,7 +4,7 @@
    ============================================================ */
 (function () {
   "use strict";
-  const { SCHEMES, sleeve, disc, genreTag, yt, reveal, load } = window.BEBOP;
+  const { SCHEMES, sleeve, disc, genreTag, yt, reveal, load, preview, playlistUrl } = window.BEBOP;
 
   const backdrop = document.getElementById("modal-backdrop");
 
@@ -13,6 +13,11 @@
     const cls = big ? "listen lg" : "listen";
     return `<a class="${cls}" href="${yt(ep.listen.query)}" target="_blank" rel="noopener"
       onclick="event.stopPropagation()" title="${ep.listen.label}">▶ ${big ? ep.listen.label : "Listen on YouTube"}</a>`;
+  }
+
+  function previewBtn(ep) {
+    if (!ep.videoId) return "";
+    return `<button class="listen lg play-preview" data-vid="${ep.videoId}" data-q="${ep.listen.query}">▶ Play 30-sec preview</button>`;
   }
 
   function card(ep) {
@@ -68,9 +73,10 @@
               <div class="song">${ep.song}</div>
               <div class="by">${ep.artist}${ep.songYear && ep.songYear !== "N/A" ? " · " + ep.songYear : ""}</div>
               <div class="chips"><span>${ep.genre}</span></div>
-              ${listenBtn(ep, true)}
+              <div class="play-row">${previewBtn(ep)}${listenBtn(ep, true)}</div>
             </div>
           </div>
+          <div class="player-slot"></div>
           <div class="note"><h4>The Tribute</h4><p>${ep.episodeLink}</p></div>
           <div class="note"><h4>Why the song matters</h4><p>${ep.songSignificance}</p></div>
           ${sources ? `<div class="sources">Sources: ${sources}</div>` : ""}
@@ -79,6 +85,11 @@
     backdrop.classList.add("open");
     document.body.style.overflow = "hidden";
     backdrop.querySelector(".close").addEventListener("click", closeModal);
+    const pb = backdrop.querySelector(".play-preview");
+    if (pb) pb.addEventListener("click", () => {
+      preview(backdrop.querySelector(".player-slot"), pb.dataset.vid, pb.dataset.q, 30);
+      pb.style.display = "none";
+    });
   }
   function closeModal() { backdrop.classList.remove("open"); document.body.style.overflow = ""; }
   backdrop.addEventListener("click", (e) => { if (e.target === backdrop) closeModal(); });
@@ -122,6 +133,13 @@
 
     setupFilters(episodes);
     reveal(".card");
+
+    // "Play all 26" anonymous YouTube queue
+    const purl = playlistUrl(episodes.map((e) => e.videoId));
+    const ps = document.getElementById("playall-slot");
+    if (purl && ps) {
+      ps.innerHTML = `<a class="playall" href="${purl}" target="_blank" rel="noopener">▶ Play all 26 songs as a YouTube queue</a>`;
+    }
 
     // Deep-link: index.html#s12 jumps to and opens that Session
     function openFromHash() {

@@ -121,6 +121,116 @@
     return "https://www.youtube.com/results?search_query=" + encodeURIComponent(query);
   }
 
+  /* ---------- Anonymous "play all" playlist from video IDs ---------- */
+  function playlistUrl(ids) {
+    const clean = (ids || []).filter(Boolean);
+    if (!clean.length) return null;
+    return "https://www.youtube.com/watch_videos?video_ids=" + clean.join(",");
+  }
+
+  /* ============================================================
+     CHORD DIAGRAMS — a mini one-octave keyboard per chord.
+     Computed from the chord name, so any chord renders correctly.
+     ============================================================ */
+  const PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  function chordTones(name) {
+    let pc = PC[name[0].toUpperCase()];
+    let i = 1;
+    while (i < name.length && "#b♯♭".includes(name[i])) {
+      pc += (name[i] === "#" || name[i] === "♯") ? 1 : -1; i++;
+    }
+    pc = ((pc % 12) + 12) % 12;
+    const q = name.slice(i);
+    let iv;
+    if (/^maj7|^△7/.test(q)) iv = [0, 4, 7, 11];
+    else if (/^maj|^△/.test(q)) iv = [0, 4, 7];
+    else if (/^m7[b♭]5/.test(q)) iv = [0, 3, 6, 10];
+    else if (/^m7/.test(q)) iv = [0, 3, 7, 10];
+    else if (/^m6/.test(q)) iv = [0, 3, 7, 9];
+    else if (/^m/.test(q)) iv = [0, 3, 7];
+    else if (/^7/.test(q)) iv = [0, 4, 7, 10];
+    else if (/^6/.test(q)) iv = [0, 4, 7, 9];
+    else if (/^dim/.test(q)) iv = [0, 3, 6];
+    else iv = [0, 4, 7];
+    return { root: pc, pcs: iv.map((x) => (pc + x) % 12) };
+  }
+  function keyboard(name) {
+    const { root, pcs } = chordTones(name);
+    const has = (p) => pcs.includes(p);
+    const col = (p) => (p === root ? "var(--bordeaux)" : "var(--mustard)");
+    const w = 13, H = 44, bw = 8.5, bh = 27;
+    const whites = [0, 2, 4, 5, 7, 9, 11];
+    const blacks = [{ p: 1, i: 0 }, { p: 3, i: 1 }, { p: 6, i: 3 }, { p: 8, i: 4 }, { p: 10, i: 5 }];
+    let s = `<svg class="kbd" width="${w * 7}" height="${H}" viewBox="0 0 ${w * 7} ${H}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`;
+    whites.forEach((p, idx) => {
+      s += `<rect x="${idx * w}" y="0" width="${w}" height="${H}" rx="1.5" fill="${has(p) ? col(p) : "#efe6d3"}" stroke="#0b0a10" stroke-width="1"/>`;
+    });
+    blacks.forEach((k) => {
+      s += `<rect x="${(k.i + 1) * w - bw / 2}" y="0" width="${bw}" height="${bh}" rx="1.2" fill="${has(k.p) ? col(k.p) : "#15131c"}" stroke="#0b0a10" stroke-width="1"/>`;
+    });
+    return s + `</svg>`;
+  }
+
+  /* ============================================================
+     INLINE PREVIEW PLAYER — 30s preview via the YouTube IFrame API.
+     Falls back to a search link if anything fails.
+     ============================================================ */
+  let _ytReady = false, _ytQ = [];
+  function _loadYT() {
+    if (window.YT && window.YT.Player) { _ytReady = true; return; }
+    if (document.getElementById("yt-iframe-api")) return;
+    const s = document.createElement("script");
+    s.id = "yt-iframe-api";
+    s.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(s);
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () {
+      _ytReady = true; if (prev) prev();
+      _ytQ.forEach((f) => f()); _ytQ = [];
+    };
+  }
+  function preview(slot, videoId, query, seconds) {
+    seconds = seconds || 30;
+    slot.classList.add("playing");
+    slot.innerHTML = '<div class="yt-mount"></div><button class="yt-x" aria-label="Close preview">×</button>';
+    slot.querySelector(".yt-x").addEventListener("click", () => {
+      slot.classList.remove("playing"); slot.innerHTML = ""; slot.dispatchEvent(new CustomEvent("preview:close"));
+    });
+    const mount = slot.querySelector(".yt-mount");
+    const go = () => {
+      let timer = null;
+      /* eslint-disable no-new */
+      new YT.Player(mount, {
+        videoId: videoId,
+        host: "https://www.youtube-nocookie.com",
+        playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 1 },
+        events: {
+          onReady: (e) => e.target.playVideo(),
+          onError: () => {
+            slot.innerHTML = `<div class="yt-ended">Couldn't embed this one · <a href="${yt(query)}" target="_blank" rel="noopener">Open on YouTube →</a></div>`;
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.PLAYING && !timer) {
+              const player = e.target;
+              timer = setInterval(() => {
+                if (player.getCurrentTime && player.getCurrentTime() >= seconds) {
+                  clearInterval(timer);
+                  try { player.pauseVideo(); } catch (_) {}
+                  if (!slot.querySelector(".yt-ended")) {
+                    slot.insertAdjacentHTML("beforeend",
+                      `<div class="yt-ended">30-sec preview ended · <a href="${yt(query)}" target="_blank" rel="noopener">Watch the full song on YouTube →</a></div>`);
+                  }
+                }
+              }, 400);
+            }
+          },
+        },
+      });
+    };
+    _loadYT();
+    if (_ytReady) go(); else _ytQ.push(go);
+  }
+
   /* ---------- Starfield ---------- */
   function starfield() {
     const sf = document.getElementById("starfield");
@@ -159,7 +269,10 @@
     return res.json();
   }
 
-  window.BEBOP = { SCHEMES, rng, sleeve, disc, genreTag, yt, starfield, topbarScroll, reveal, load };
+  window.BEBOP = {
+    SCHEMES, rng, sleeve, disc, genreTag, yt, playlistUrl,
+    keyboard, chordTones, preview, starfield, topbarScroll, reveal, load,
+  };
 
   /* Init the chrome that every page shares */
   function init() { starfield(); topbarScroll(); }

@@ -27,12 +27,25 @@ Three pages, one design language:
 Plus:
 - **Procedural cover art** — every episode gets a unique, Blue-Note-inspired
   record-sleeve generated in SVG from the session number. No copyrighted images.
+- **Inline 30-second previews** — click "Play preview" on any Session or track to
+  watch a 30-sec clip embedded in the page (YouTube IFrame API). If an embed
+  fails it falls back to opening the song on YouTube.
+- **"Play all" buttons** — queue all 26 songs (or all soundtrack tracks) as a
+  single YouTube playlist.
+- **Chord diagrams** — every chord on the Deep Cuts page renders a mini keyboard
+  with its notes highlighted (root in red), computed from the chord name.
 - **Genre filter**, scroll-reveal animation, a liner-notes modal per Session,
   and deep-links (`index.html#s12` opens that Session directly).
-- **YouTube links are search links** (`youtube.com/results?...`), not hard-coded
-  video IDs — so they never break, get region-locked, or point at a dead upload.
 - A design language built around the show's eyecatch palette (mustard / bordeaux
   / teal), condensed display type, film grain and scanlines.
+
+### A note on the YouTube IDs
+
+Inline playback and the playlists need real video IDs, stored as `videoId` in the
+`data/` JSON. They were chosen from official/Topic/VEVO uploads. If any single
+video ever goes private or region-locks, the player falls back to a YouTube
+search link, and you can swap the one `videoId` in the data file — nothing else
+needs to change.
 
 ## Tech
 
