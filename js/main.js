@@ -7,6 +7,19 @@
   const { SCHEMES, sleeve, disc, genreTag, yt, reveal, load, preview, playlistUrl } = window.BEBOP;
 
   const backdrop = document.getElementById("modal-backdrop");
+  let soundtrackBySession = {}; // session number -> [ {id,title,role} ]
+
+  function deepCutBlock(ep) {
+    const tracks = soundtrackBySession[ep.session];
+    if (!tracks || !tracks.length) return "";
+    const chips = tracks.map((t) =>
+      `<a class="deepcut-chip" href="soundtrack.html#${t.id}">♪ ${t.title} — theory &amp; chords →</a>`).join("");
+    return `<div class="note deepcut-note">
+      <h4>On the Bebop soundtrack</h4>
+      <p>${tracks.length > 1 ? "Cues heard in this Session are" : "A cue heard in this Session is"} broken down — music theory and chords — on the Deep Cuts page:</p>
+      <div class="deepcut-chips">${chips}</div>
+    </div>`;
+  }
 
   function listenBtn(ep, big) {
     if (!ep.listen) return "";
@@ -78,6 +91,7 @@
           </div>
           <div class="player-slot"></div>
           <div class="note"><h4>The Tribute</h4><p>${ep.episodeLink}</p></div>
+          ${deepCutBlock(ep)}
           <div class="note"><h4>Why the song matters</h4><p>${ep.songSignificance}</p></div>
           ${sources ? `<div class="sources">Sources: ${sources}</div>` : ""}
         </div>
@@ -121,6 +135,14 @@
       return;
     }
     episodes.sort((a, b) => a.session - b.session);
+
+    // Build the session -> soundtrack-cue map for the modal backlinks
+    try {
+      const st = await load("data/soundtrack.json");
+      (st.tracks || []).forEach((t) => (t.episodes || []).forEach((s) => {
+        (soundtrackBySession[s] = soundtrackBySession[s] || []).push({ id: t.id, title: t.title, role: t.role });
+      }));
+    } catch (_) { /* backlinks are optional */ }
 
     const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
     set("stat-episodes", episodes.length);

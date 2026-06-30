@@ -34,6 +34,11 @@ Plus:
   single YouTube playlist.
 - **Chord diagrams** — every chord on the Deep Cuts page renders a mini keyboard
   with its notes highlighted (root in red), computed from the chord name.
+- **Two-way cross-links** — an episode's modal links to the Seatbelts cue(s) heard
+  in it (with theory + chords on Deep Cuts), and each Deep Cuts track links back to
+  the episode(s) it scores. Mapping lives in `data/soundtrack.json` (`episodes`).
+- **Mobile-responsive** — the nav stays visible on phones, the session grid and
+  modal collapse to a single column, and tap targets/buttons go full width.
 - **Genre filter**, scroll-reveal animation, a liner-notes modal per Session,
   and deep-links (`index.html#s12` opens that Session directly).
 - A design language built around the show's eyecatch palette (mustard / bordeaux
